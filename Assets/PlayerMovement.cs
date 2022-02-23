@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private int lane = 0;
     Vector3 velocity;
 
-    public int lives = 0;
+    public int lives = 3;
     public int coins = 0;
     public float distance = 0f;
 
@@ -101,8 +101,28 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    void NoLives()
+    private void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene(0);
+        if (other.CompareTag("Obstacle"))
+        {
+            lives -= 1;
+            Destroy(other.gameObject);
+            if(lives <= 0)
+            {
+                Pause();
+            }
+        }
+
+        if (other.CompareTag("Coin"))
+        {
+            coins += 1;
+            Destroy(other.gameObject);
+        }
     }
+
+    void Pause()
+    {
+        Time.timeScale = 0;
+    }
+
 }
