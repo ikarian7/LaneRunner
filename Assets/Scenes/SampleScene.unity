@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  jump: 1
+  jump: 10
   camera: {fileID: 963194225}
   controller: {fileID: 58593105}
   lives: 3
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 321449291}
   - component: {fileID: 321449290}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Lane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,7 +449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6864281080110912715, guid: 48834066ee912f24686d17a472e188d3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.48
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6864281080110912715, guid: 48834066ee912f24686d17a472e188d3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -482,6 +482,18 @@ PrefabInstance:
     - target: {fileID: 6864281080110912715, guid: 48834066ee912f24686d17a472e188d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8677982917803407119, guid: 48834066ee912f24686d17a472e188d3, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8677982917803407119, guid: 48834066ee912f24686d17a472e188d3, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8677982917803407119, guid: 48834066ee912f24686d17a472e188d3, type: 3}
+      propertyPath: m_MinMoveDistance
+      value: 0.001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48834066ee912f24686d17a472e188d3, type: 3}
