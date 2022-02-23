@@ -39,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Forward();
+
+        Controls();
     }
 
     void Forward()
@@ -49,5 +51,29 @@ public class PlayerMovement : MonoBehaviour
         distance += (speed * Time.deltaTime);
 
         camera.transform.position += movement;
+    }
+
+    void Controls()
+    {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                ChangeLane(-1);
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                ChangeLane(1);
+            }
+    }
+
+    public void ChangeLane(int direction)
+    {
+        if (lane >= -1 && lane <= 0 && direction > 0 || lane >= 0 && lane <= 1 && direction < 0)
+        {
+            Vector3 LaneMovement = new Vector3(direction * 2, 0, 0);
+
+            controller.Move(LaneMovement);
+
+            lane += direction;
+        }
     }
 }
