@@ -38,9 +38,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Gravity();
         Controls();
         Forward();
+        Gravity();
     }
 
     void Forward()
@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Jump()
+    public void Jump()
     {
         if (controller.isGrounded)
         {
@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (controller.isGrounded)
         {
-            velocity.y = -gravity;
+            velocity.y = -gravity * 0.1f;
         }
 
         controller.Move(velocity * Time.deltaTime);
@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
             Destroy(other.gameObject);
             if(lives <= 0)
             {
-                Pause();
+                StartCoroutine(Pause());
             }
         }
 
@@ -120,9 +120,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Pause()
+    IEnumerator Pause()
     {
         Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(3.0f);
+        SceneManager.LoadScene(0);
     }
 
 }

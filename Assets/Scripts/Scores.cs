@@ -15,6 +15,6 @@ public class Scores : MonoBehaviour
 
     void Update()
     {
-        text.text = "Distance: " + ((int)score.distance + " Coins: " + (score.coins) + " Lives: " + (score.lives));
+        text.text = "Distance: " + ((int)score.distance + " Coins: " + (score.coins) + " Lives: " + (score.lives) + " Score: " + (int)score.distance * (score.coins * 100));
     }
 }

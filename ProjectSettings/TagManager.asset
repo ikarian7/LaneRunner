@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Coin
   - Obstacle
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 
