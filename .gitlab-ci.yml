@@ -4,7 +4,7 @@ stages:
     - deploy
 
 unit-test:
-    script: "D:\Program Files\Unity\Hub\Editor\2020.3.18f1\Editor\Unity.exe \
+    script: "D:/Program Files/Unity/Hub/Editor/2020.3.18f1/Editor/Unity.exe \
         -batchmode \
         -projectPath . \
         -runTests -testPlatform playmode \
