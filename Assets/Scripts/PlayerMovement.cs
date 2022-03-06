@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         Controls();
         Forward();
         Gravity();
+        Debug.Log(controller.isGrounded);
     }
 
     void Forward()
@@ -108,6 +109,16 @@ public class PlayerMovement : MonoBehaviour
             lives -= 1;
             Destroy(other.gameObject);
             if(lives <= 0)
+            {
+                StartCoroutine(Pause());
+            }
+        }
+
+        if (other.CompareTag("MovingObstacle"))
+        {
+            lives -= 1;
+            Destroy(other.gameObject);
+            if (lives <= 0)
             {
                 StartCoroutine(Pause());
             }
