@@ -41,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
         Controls();
         Forward();
         Gravity();
-        Debug.Log(controller.isGrounded);
     }
 
     void Forward()
@@ -68,6 +67,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 Jump();
             }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                Crouch();
+            } 
+            if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                Stand();
+            }
     }
 
     public void ChangeLane(int direction)
@@ -90,6 +97,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void Crouch()
+    {
+        this.gameObject.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+        this.gameObject.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.y);
+        controller.height = 1;
+    }
+
+    public void Stand()
+    {
+        this.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        this.gameObject.transform.position = new Vector3(this.transform.position.x, 1.08f, this.transform.position.y);
+        controller.height = 2;
+    }
+
     void Gravity()
     {
         velocity.y -= gravity * Time.deltaTime;
@@ -108,9 +129,14 @@ public class PlayerMovement : MonoBehaviour
         {
             lives -= 1;
             Destroy(other.gameObject);
-            if(lives <= 0)
+            StartCoroutine(Slowdown());
+            if (lives <= 0)
             {
                 StartCoroutine(Pause());
+            }
+            else
+            {
+                StartCoroutine(Slowdown());
             }
         }
 
@@ -122,6 +148,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 StartCoroutine(Pause());
             }
+            else 
+            { 
+                StartCoroutine(Slowdown()); 
+            }
         }
 
         if (other.CompareTag("Coin"))
@@ -129,6 +159,18 @@ public class PlayerMovement : MonoBehaviour
             coins += 1;
             Destroy(other.gameObject);
         }
+
+        if (other.CompareTag("Finish"))
+        {
+            StartCoroutine(Pause()); 
+        }
+    }
+
+    IEnumerator Slowdown()
+    {
+        Time.timeScale = 0.2f;
+        yield return new WaitForSecondsRealtime(1.5f);
+        Time.timeScale = 1;
     }
 
     IEnumerator Pause()

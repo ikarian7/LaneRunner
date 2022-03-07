@@ -54,7 +54,6 @@ public class Test
 
     //test to see if dodge moving obstacle
     [UnityTest]
-
     public IEnumerator DodgeMoving()
     {
         PlayerMovement player = GameObject.Find("Player").GetComponent<PlayerMovement>();
@@ -67,7 +66,25 @@ public class Test
         yield return new WaitForSecondsRealtime(2f);
 
         Assert.That(player.lives == 3);
+    }
+
+    //test if crouching doesn't collide with a higher placed obstacle
+    [UnityTest]
+    public IEnumerator Crouching()
+    {
+        PlayerMovement player = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        Assert.That(player.lives == 3);
+
+        player.ChangeLane(-1);
+        yield return new WaitForSecondsRealtime(5f);
+        player.Crouch();
+        yield return new WaitForSecondsRealtime(1f);
+        player.Stand();
+        yield return new WaitForSecondsRealtime(1f);
+        Assert.That(player.lives == 3);
+
 
     }
+
 
 }
