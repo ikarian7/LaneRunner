@@ -23,19 +23,21 @@ public class Test
 
         yield return new WaitForSecondsRealtime(4.5f);
         player.ChangeLane(-1);
+        player.Crouch();
 
-        yield return new WaitForSecondsRealtime(5f);
-        player.Jump();
+        yield return new WaitForSecondsRealtime(2f);
+        player.Stand();
+
+        yield return new WaitForSecondsRealtime(1f);
         player.ChangeLane(2);
 
-        yield return new WaitForSecondsRealtime(4f);
+        yield return new WaitForSecondsRealtime(2f);
         player.Jump();
+
+        yield return new WaitForSecondsRealtime(4f);
         player.ChangeLane(-1);
 
-        yield return new WaitForSecondsRealtime(2f);
-        player.ChangeLane(1);
-
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(4f);
 
         Assert.That(player.coins == 10);
     }
@@ -49,7 +51,7 @@ public class Test
         Assert.That(player.lives == 3);
 
         yield return new WaitForSeconds(7f);
-        Assert.That(player.lives == 0);
+        Assert.That(player.lives < 3);
     }
 
     //test to see if dodge moving obstacle
@@ -62,7 +64,7 @@ public class Test
 
         yield return new WaitForSecondsRealtime(4.5f);
         player.ChangeLane(-1);
-
+        player.Crouch();
         yield return new WaitForSecondsRealtime(2f);
 
         Assert.That(player.lives == 3);
@@ -82,9 +84,41 @@ public class Test
         player.Stand();
         yield return new WaitForSecondsRealtime(1f);
         Assert.That(player.lives == 3);
-
-
     }
 
+    [UnityTest]
+    public IEnumerator WinGame()
+    {
+        PlayerMovement player = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        Assert.That(player.lives == 3);
+        Assert.That(player.coins == 0);
+
+        yield return new WaitForSecondsRealtime(4.5f);
+        player.ChangeLane(-1);
+        player.Crouch();
+
+        yield return new WaitForSecondsRealtime(2f);
+        player.Stand();
+
+        yield return new WaitForSecondsRealtime(1f);
+        player.ChangeLane(2);
+
+        yield return new WaitForSecondsRealtime(3f);
+        player.Jump();
+        
+
+        yield return new WaitForSecondsRealtime(4f);
+        player.Jump();
+        player.ChangeLane(-1);
+
+        yield return new WaitForSecondsRealtime(2f);
+        player.ChangeLane(1);
+
+        yield return new WaitForSecondsRealtime(2f);
+
+        Assert.That(player.lives > 0);
+        Assert.That(player.coins == 10);
+
+    }
 
 }
